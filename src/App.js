@@ -16,6 +16,7 @@ const signupUri = "https://instagram-express-demo.herokuapp.com/api/user/signup"
 const loginUri = "https://instagram-express-demo.herokuapp.com/api/user/login";
 const createPostUri = "https://instagram-express-demo.herokuapp.com/api/post/create";
 const postUri = "https://instagram-express-demo.herokuapp.com/api/post/index";
+const commentUri = "https://instagram-express-demo.herokuapp.com/api/post/comment";
 
 class App extends React.Component {
   constructor() {
@@ -27,18 +28,19 @@ class App extends React.Component {
     this.onSignup = this.onSignup.bind(this);
     this.onLogin = this.onLogin.bind(this);
     this.onCreatePost = this.onCreatePost.bind(this);
+    this.onComment = this.onComment.bind(this);
   }
 
   // Login user
-  onLogin({email, password}, e) {
+  onLogin({ email, password }, e) {
     e.preventDefault();
     axios.post(loginUri, {
       email: email,
       password: password,
     })
-     .then(res => this.setState({
-       userID: res.data._id,
-     }))
+      .then(res => this.setState({
+        userID: res.data._id,
+      }))
   }
   //Create user and setState userID
   onSignup(user, e) {
@@ -50,10 +52,10 @@ class App extends React.Component {
       email: email,
       password: password
     })
-     .then(res => this.setState({
-       userID: res.data._id,
-     }))
-     .catch(err => console.log(err));
+      .then(res => this.setState({
+        userID: res.data._id,
+      }))
+      .catch(err => console.log(err));
   }
   //Create post
   onCreatePost({ text }, e) {
@@ -63,43 +65,55 @@ class App extends React.Component {
       userID: userID,
       body: text,
     })
+      .then()
+      .catch(err => console.log(err));
+  }
+  // comment
+  onComment({cmt, postID }, e) {
+    e.preventDefault();
+    let { userID } = this.state;
+    axios.post(commentUri, {
+      postID: postID,
+      userID: userID,
+      cmt: cmt
+    })
      .then()
      .catch(err => console.log(err));
   }
-
   //Load all post
   componentDidMount() {
     axios.get(postUri)
-     .then(res => this.setState({
-       posts: res.data
-     }))
-     .catch(err => console.log(err));
+      .then(res => this.setState({
+        posts: res.data
+      }))
+      .catch(err => console.log(err));
   }
 
   render() {
+    console.log(this.state);
     let { posts } = this.state;
     return (
       <Router>
         <div className="App">
           <Header />
         </div>
-      <Switch>
-        <Route exact path='/'>
-          <h1>Home</h1>
-        </Route>
-        <Route path='/login'>
-          <Login onLogin={ this.onLogin }/>
-        </Route>
-        <Route path='/signup'>
-          <Signup onSignup={ this.onSignup}/>
-        </Route>
-        <Route path='/timeline'>
-          <PostList posts={ posts } />
-        </Route>
-        <Route path='/createpost'>
-          <CreatePost onCreatePost={this.onCreatePost}/>
-        </Route>
-      </Switch>
+        <Switch>
+          <Route exact path='/'>
+            <h1>Home</h1>
+          </Route>
+          <Route path='/login'>
+            <Login onLogin={this.onLogin} />
+          </Route>
+          <Route path='/signup'>
+            <Signup onSignup={this.onSignup} />
+          </Route>
+          <Route path='/timeline'>
+            <PostList posts={posts} onComment={this.onComment} />
+          </Route>
+          <Route path='/createpost'>
+            <CreatePost onCreatePost={this.onCreatePost} />
+          </Route>
+        </Switch>
       </Router>
     );
   }
