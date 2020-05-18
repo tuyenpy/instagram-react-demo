@@ -14,6 +14,7 @@ import CreatePost from './component/CreatePost/CreatePost';
 
 const signupUri = "https://instagram-express-demo.herokuapp.com/api/user/signup";
 const loginUri = "https://instagram-express-demo.herokuapp.com/api/user/login";
+const createPostUri = "https://instagram-express-demo.herokuapp.com/api/post/create";
 
 class App extends React.Component {
   constructor() {
@@ -23,6 +24,7 @@ class App extends React.Component {
     };
     this.onSignup = this.onSignup.bind(this);
     this.onLogin = this.onLogin.bind(this);
+    this.onCreatePost = this.onCreatePost.bind(this);
   }
 
   // Login user
@@ -51,8 +53,20 @@ class App extends React.Component {
      }))
      .catch(err => console.log(err));
   }
-  
+  //Create post
+  onCreatePost({ text }, e) {
+    e.preventDefault();
+    let { userID } = this.state;
+    axios.post(createPostUri, {
+      userID: userID,
+      body: text,
+    })
+     .then()
+     .catch(err => console.log(err));
+  }
+
   render() {
+    console.log(this.state);
     return (
       <Router>
         <div className="App">
@@ -72,7 +86,7 @@ class App extends React.Component {
           <PostList />
         </Route>
         <Route path='/createpost'>
-          <CreatePost />
+          <CreatePost onCreatePost={this.onCreatePost}/>
         </Route>
       </Switch>
       </Router>

@@ -20,7 +20,7 @@ const Header = (props) => {
                 <Link to='/notification'>Notification</Link>
             </li>
             <li>
-                <Link to='/upload'>Upload Image</Link>
+                <Link to='/createpost'>Create Post</Link>
             </li>
         </ul>
     </div>
