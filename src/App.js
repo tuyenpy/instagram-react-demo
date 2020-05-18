@@ -15,12 +15,14 @@ import CreatePost from './component/CreatePost/CreatePost';
 const signupUri = "https://instagram-express-demo.herokuapp.com/api/user/signup";
 const loginUri = "https://instagram-express-demo.herokuapp.com/api/user/login";
 const createPostUri = "https://instagram-express-demo.herokuapp.com/api/post/create";
+const postUri = "https://instagram-express-demo.herokuapp.com/api/post/index";
 
 class App extends React.Component {
   constructor() {
     super();
     this.state = {
       userID: "",
+      posts: [],
     };
     this.onSignup = this.onSignup.bind(this);
     this.onLogin = this.onLogin.bind(this);
@@ -65,8 +67,17 @@ class App extends React.Component {
      .catch(err => console.log(err));
   }
 
+  //Load all post
+  componentDidMount() {
+    axios.get(postUri)
+     .then(res => this.setState({
+       posts: res.data
+     }))
+     .catch(err => console.log(err));
+  }
+
   render() {
-    console.log(this.state);
+    let { posts } = this.state;
     return (
       <Router>
         <div className="App">
@@ -83,7 +94,7 @@ class App extends React.Component {
           <Signup onSignup={ this.onSignup}/>
         </Route>
         <Route path='/timeline'>
-          <PostList />
+          <PostList posts={ posts } />
         </Route>
         <Route path='/createpost'>
           <CreatePost onCreatePost={this.onCreatePost}/>
