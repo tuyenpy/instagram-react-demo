@@ -1,5 +1,6 @@
 import React from 'react';
 import PostItem from '../PostItem/PostItem';
+import './PostList.css';
 
 const PostList = (props) => {
     let { posts, onComment, onLike } = props;

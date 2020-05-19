@@ -1,4 +1,5 @@
 import React from 'react';
+import './LikeButton.css';
 
 const LikeButton = (props) => {
     let { userID, postID, onLike, like } = props;

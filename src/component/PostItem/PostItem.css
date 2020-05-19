@@ -1,0 +1,14 @@
+.PostItem {
+    background-color: #ffffff;
+    margin-bottom: 20px;
+    box-shadow: 0px 0px 3px #cccccc;
+    padding: 0px 10px;
+    border-radius: 5px;
+}
+
+.PostItem p:not(:first-child) {
+    font-size: 20px;
+    font-weight: 600;
+    font-style: italic;
+    line-height: 1.5em;
+}
