@@ -12,6 +12,10 @@ const Home = (props) => {
         <p>thinh@gmail.com</p>
         <p>pass: 123</p>
         <small>Chưa validate nên quý bằng hữu chỉ cần đúng email là được ^^</small>
+        <h3>Github</h3>
+        <a href="https://github.com/tuyenpy/instagram-react-demo" alt="Link to github">
+            <p>https://github.com/tuyenpy/instagram-react-demo</p>
+        </a>
     </div>
 }
 
