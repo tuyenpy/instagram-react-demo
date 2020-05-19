@@ -17,6 +17,7 @@ const loginUri = "https://instagram-express-demo.herokuapp.com/api/user/login";
 const createPostUri = "https://instagram-express-demo.herokuapp.com/api/post/create";
 const postUri = "https://instagram-express-demo.herokuapp.com/api/post/index";
 const commentUri = "https://instagram-express-demo.herokuapp.com/api/post/comment";
+const likeUri = "https://instagram-express-demo.herokuapp.com/api/post/like";
 
 class App extends React.Component {
   constructor() {
@@ -29,6 +30,7 @@ class App extends React.Component {
     this.onLogin = this.onLogin.bind(this);
     this.onCreatePost = this.onCreatePost.bind(this);
     this.onComment = this.onComment.bind(this);
+    this.onLike = this.onLike.bind(this);
   }
 
   // Login user
@@ -80,6 +82,18 @@ class App extends React.Component {
      .then()
      .catch(err => console.log(err));
   }
+  
+  //like Post
+  onLike({userID, postID}, e) {
+    e.preventDefault();
+    axios.post(likeUri, {
+      postID: postID,
+      userID: userID
+    })
+     .then()
+     .catch(err => console.log(err));
+  }
+
   //Load all post
   componentDidMount() {
     axios.get(postUri)
@@ -88,6 +102,8 @@ class App extends React.Component {
       }))
       .catch(err => console.log(err));
   }
+
+
 
   render() {
     console.log(this.state);
@@ -108,7 +124,7 @@ class App extends React.Component {
             <Signup onSignup={this.onSignup} />
           </Route>
           <Route path='/timeline'>
-            <PostList posts={posts} onComment={this.onComment} />
+            <PostList posts={posts} onComment={this.onComment} onLike={ this.onLike } />
           </Route>
           <Route path='/createpost'>
             <CreatePost onCreatePost={this.onCreatePost} />
