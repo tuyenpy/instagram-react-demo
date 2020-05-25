@@ -28,17 +28,13 @@ let App = (props) => {
   let newPosts = [];
 
   const checkPost = (posts, like, comment) => {
-    if (like) return posts.map(post => {
-      if (post._id === like._id) return like;
-      return post;
+    return posts.map(post => {
+      switch (post._id) {
+        case like._id: return like;
+        case comment._id: return comment;
+        default: return post
+      }
     })
-
-    if (comment) return posts.map(post => {
-      if (post._id === comment._id) return comment;
-      return post;
-    })
-
-    return posts;
   }
 
   newPosts = checkPost(posts, like, comment);
