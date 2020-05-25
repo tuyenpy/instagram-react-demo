@@ -6,8 +6,8 @@ const CommentList = (props) => {
 
     return <div className="CommentList">
         {
-            comments && comments.map( comment => 
-                <CommentItem { ...comment } key={ comment }/>
+            comments && comments.map( (comment, index) => 
+                <CommentItem { ...comment } key={ index }/>
             )
 
         }

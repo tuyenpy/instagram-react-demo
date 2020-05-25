@@ -9,9 +9,9 @@ const PostItem = (props) => {
     return <div className="PostItem">
         <p><b>Người viết:</b> {userID}</p>
         <p>{body}</p>
-        <LikeButton userID={ userID } postID={ _id } like={like} onLike={ onLike }/>
-        <CommentList comments={ comment } />
-        <CommentButton onComment={ onComment } postID={_id}/>
+        <LikeButton userID={userID} postID={_id} like={like} onLike={onLike} />
+        <CommentList comments={comment} />
+        <CommentButton onComment={onComment} postID={_id} userID={userID} />
     </div>
 }
 

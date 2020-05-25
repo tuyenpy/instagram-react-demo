@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import './App.css';
 import {
   BrowserRouter as Router,
@@ -7,6 +7,8 @@ import {
 } from 'react-router-dom';
 import axios from 'axios';
 import { withCookies } from 'react-cookie';
+import { connect } from 'react-redux';
+import { getData } from './actions';
 
 import Header from './component/Header/Header';
 import PostList from './component/PostList/PostList';
@@ -18,26 +20,31 @@ import Home from './component/Home/Home';
 const signupUri = "https://instagram-express-demo.herokuapp.com/api/user/signup";
 const loginUri = "https://instagram-express-demo.herokuapp.com/api/user/login";
 const createPostUri = "https://instagram-express-demo.herokuapp.com/api/post/create";
-const postUri = "https://instagram-express-demo.herokuapp.com/api/post/index";
 const commentUri = "https://instagram-express-demo.herokuapp.com/api/post/comment";
-const likeUri = "https://instagram-express-demo.herokuapp.com/api/post/like";
 
-class App extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      userID: "",
-      posts: [],
-    };
-    this.onSignup = this.onSignup.bind(this);
-    this.onLogin = this.onLogin.bind(this);
-    this.onCreatePost = this.onCreatePost.bind(this);
-    this.onComment = this.onComment.bind(this);
-    this.onLike = this.onLike.bind(this);
+let App = (props) => {
+  let { posts, getData, like, comment } = props;
+  console.log('App rendering');
+  let newPosts = [];
+
+  const checkPost = (posts, like, comment) => {
+    if (like) return posts.map(post => {
+      if (post._id === like._id) return like;
+      return post;
+    })
+
+    if (comment) return posts.map(post => {
+      if (post._id === comment._id) return comment;
+      return post;
+    })
+
+    return posts;
   }
 
+  newPosts = checkPost(posts, like, comment);
+
   // Login user
-  onLogin({ email, password }, e) {
+  const onLogin = ({ email, password }, e) => {
     e.preventDefault();
     let { cookies } = this.props;
     axios.post(loginUri, {
@@ -48,7 +55,7 @@ class App extends React.Component {
       .catch(err => console.log(err));
   }
   //Create user and setState userID
-  onSignup(user, e) {
+  const onSignup = (user, e) => {
     e.preventDefault();
     let { name, phone, email, password } = user;
     axios.post(signupUri, {
@@ -63,7 +70,7 @@ class App extends React.Component {
       .catch(err => console.log(err));
   }
   //Create post
-  onCreatePost({ text }, e) {
+  const onCreatePost = ({ text }, e) => {
     e.preventDefault();
     let { cookies } = this.props;
     let userID = cookies.get('userID');
@@ -75,7 +82,7 @@ class App extends React.Component {
       .catch(err => console.log(err));
   }
   // comment
-  onComment({ cmt, postID }, e) {
+  const onComment = ({ cmt, postID }, e) => {
     e.preventDefault();
     let { cookies } = this.props;
     let userID = cookies.get('userID');
@@ -89,57 +96,62 @@ class App extends React.Component {
   }
 
   //like Post
-  onLike({ userID, postID }, e) {
-    e.preventDefault();
-    axios.post(likeUri, {
-      postID: postID,
-      userID: userID
-    })
-      .then()
-      .catch(err => console.log(err));
-  }
-
-  //Load all post
-  componentDidMount() {
-    axios.get(postUri)
-      .then(res => this.setState({
-        posts: res.data
-      }))
-      .catch(err => console.log(err));
-  }
-
-
-
-  render() {
-    console.log(this.state);
-    let { posts } = this.state;
-    return (
-      <Router>
-        <div className="App">
-          <Header />
-          <Switch>
-            <Route exact path='/'>
-              <Home />
-            </Route>
-            <Route path='/login'>
-              <Login onLogin={this.onLogin} />
-            </Route>
-            <Route path='/signup'>
-              <Signup onSignup={this.onSignup} />
-            </Route>
-            <Route path='/timeline'>
-              <PostList posts={posts} onComment={this.onComment} onLike={this.onLike} />
-            </Route>
-            <Route path='/createpost'>
-              <CreatePost onCreatePost={this.onCreatePost} />
-            </Route>
-          </Switch>
-        </div>
-      </Router>
-    );
-  }
+  // const onLike = ({ userID, postID }, e) => {
+  //   e.preventDefault();
+  //   axios.post(likeUri, {
+  //     postID: postID,
+  //     userID: userID
+  //   })
+  //     .then()
+  //     .catch(err => console.log(err));
+  // }
+  // useEffect(() => {
+  //   axios.get(postUri)
+  //     .then(res => setState({
+  //       posts: res.data
+  //     }))
+  //     .catch(err => console.log(err));
+  // }, []);
+  useEffect(() => {
+    getData()
+  }, [getData]);
+  return (
+    <Router>
+      <div className="App">
+        <Header />
+        <Switch>
+          <Route exact path='/'>
+            <Home />
+          </Route>
+          <Route path='/login'>
+            <Login onLogin={onLogin} />
+          </Route>
+          <Route path='/signup'>
+            <Signup onSignup={onSignup} />
+          </Route>
+          <Route path='/timeline'>
+            <PostList posts={newPosts} onComment={onComment} />
+          </Route>
+          <Route path='/createpost'>
+            <CreatePost onCreatePost={onCreatePost} />
+          </Route>
+        </Switch>
+      </div>
+    </Router>
+  );
 }
 
+const mapDispatchToProp = {
+  getData: getData,
+}
+
+const mapStateToProp = (state) => ({
+  posts: state.posts,
+  like: state.like,
+  comment: state.comment,
+});
+
+App = connect(mapStateToProp, mapDispatchToProp)(App);
 
 export default withCookies(App);
 
