@@ -1,28 +1,23 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import './Header.css';
+import Search from '../Search/Search';
+import Account from '../Account/Account';
 
 const Header = (props) => {
     return <div className="Header">
-        <ul>
-            <li>
-                <Link to='/'>Home</Link>
-            </li>
-            <li>
-                <Link to='/timeline'>Timeline</Link>
-            </li>
-            <li>
-                <Link to='/login'>Login</Link>
-            </li>
-            <li>
-                <Link to='/signup'>Signup</Link>
-            </li>
-            <li>
-                <Link to='/notification'>Notification</Link>
-            </li>
-            <li>
-                <Link to='/createpost'>Create Post</Link>
-            </li>
-        </ul>
+       <div className="Header-main">
+           <div className="Header-logo">
+               <a href="/">
+                   <img src="https://www.instagram.com/static/images/web/mobile_nav_type_logo.png/735145cfe0a4.png" alt="logo"/>
+               </a>
+           </div>
+           <div className="Header-search">
+               <Search />
+           </div>
+           <div className="Header-account">
+               <Account />
+           </div>
+       </div>
     </div>
 }
 

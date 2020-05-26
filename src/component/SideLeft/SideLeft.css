@@ -1,0 +1,97 @@
+.SideLeft {
+    position: fixed;
+    box-sizing: border-box;
+    top: 0;
+    right: 15%;
+    width: 23%;
+    padding: 100px 0px 0px 30px;
+    font-size: 14px;
+}
+
+.SideLeft-profile {
+    display: flex;
+    align-items: center;
+}
+
+.SideLeft-profile img {
+    width: 50px;
+}
+.SideLeft-profile div {
+    padding-left: 15px;
+}
+
+.SideLeft-profile p:first-child {
+    font-weight: 600;
+}
+
+.SideLeft-profile p:not(:first-child) {
+    font-size: 12px;
+    color: #A0A0A0
+}
+
+.SideLeft-suggest {
+    margin-top: 20px;
+}
+.SideLeft-suggest .header {
+    display: flex;
+    justify-content: space-between;
+    padding-bottom: 10px;
+}
+
+.SideLeft-suggest .header p:first-child {
+    color: #A0A0A0;
+    font-weight: 600;
+}
+
+.SideLeft-suggest .header p:not(:first-child) {
+    text-transform: capitalize;
+    font-size: 13px;
+}
+.body-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+.body-item div {
+    flex-grow: 1;
+    padding-left: 10px;
+}
+.body-item div p:first-child {
+    font-weight: 600;
+}
+.body-item div p:not(:first-child) {
+    font-size: 12px;
+    color: #A0A0A0;
+}
+.body-item img{
+    width: 30px;
+}
+.body-item button {
+    border: 0;
+    background-color: transparent;
+    color: #0095F6;
+    font-weight: 500;
+    cursor: pointer;
+    font-size: 13px;
+}
+
+.SideLeft-link ul {
+    display: flex;
+    list-style-type: none;
+}
+
+.SideLeft-link a {
+    color: #cecece;
+    font-size: 12px;
+    margin-right: 10px;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.SideLeft-footer p {
+    padding: 20px 0px;
+    text-transform: uppercase;
+    color: #cecece;
+    font-size: 11px;
+}

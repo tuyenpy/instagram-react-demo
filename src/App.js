@@ -16,6 +16,8 @@ import Login from './component/Login/Login';
 import Signup from './component/Signup/Signup';
 import CreatePost from './component/CreatePost/CreatePost';
 import Home from './component/Home/Home';
+import SideLeft from './component/SideLeft/SideLeft';
+import Suggest from './component/Suggest/Suggest';
 
 const signupUri = "https://instagram-express-demo.herokuapp.com/api/user/signup";
 const loginUri = "https://instagram-express-demo.herokuapp.com/api/user/login";
@@ -100,26 +102,29 @@ let App = (props) => {
   }, [getData]);
   return (
     <Router>
-      <div className="App">
-        <Header />
-        <Switch>
-          <Route exact path='/'>
-            <Home />
-          </Route>
-          <Route path='/login'>
+      <Header />
+        <div className="App">
+          <div className="App-header"></div>
+          <Switch>
+            <Route exact path='/'>
+              <Home />
+            </Route>
+            {/* <Route path='/login'>
             <Login onLogin={onLogin} />
-          </Route>
-          <Route path='/signup'>
+          </Route> */}
+            {/* <Route path='/signup'>
             <Signup onSignup={onSignup} />
-          </Route>
-          <Route path='/timeline'>
-            <PostList posts={posts} onComment={onComment} />
-          </Route>
-          <Route path='/createpost'>
+          </Route> */}
+            <Route path='/timeline'>
+              <PostList posts={posts} onComment={onComment} />
+              <Suggest />
+            </Route>
+            {/* <Route path='/createpost'>
             <CreatePost onCreatePost={onCreatePost} />
-          </Route>
-        </Switch>
-      </div>
+          </Route> */}
+          </Switch>
+        </div>
+        <SideLeft />
     </Router>
   );
 }

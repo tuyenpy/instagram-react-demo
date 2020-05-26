@@ -1,0 +1,12 @@
+.Account {
+    display: flex;
+    align-items: center;
+}
+
+.margin {
+    margin-left: 20px;
+}
+
+.Account-profile img {
+    width: 25px;
+}

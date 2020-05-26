@@ -1,0 +1,27 @@
+.Header {
+    position: fixed;
+    border-bottom: 1px solid #DBDBDB;
+    width: 100%;
+    background-color: #ffffff;
+    z-index: 10;
+}
+.Header-main {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-sizing: border-box;
+    padding: 2px 0px;
+    width: 70%;
+    margin: auto;
+}
+
+.Header-logo img {
+    margin-top: 15px;
+}
+
+@media screen and (max-width: 800px) {
+    .Header-main {
+        width: 100%;
+        padding: 2px 20px;
+    }
+}
