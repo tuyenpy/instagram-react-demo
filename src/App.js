@@ -23,40 +23,8 @@ const createPostUri = "https://instagram-express-demo.herokuapp.com/api/post/cre
 const commentUri = "https://instagram-express-demo.herokuapp.com/api/post/comment";
 
 let App = (props) => {
-  let { posts, getData, like, comment } = props;
+  let { posts, getData } = props;
   console.log('App rendering');
-  let newPosts = [];
-
-  const checkPost = (posts, like, comment) => {
-    if (!like && !comment) return posts;
-    return posts.map(post => {
-      // If one post receives 2 like events and comments
-      if (post._id === like._id && post._id === comment._id) {
-        return {
-          ...post,
-          like: like.like,
-          comment: comment.comment,
-        }
-      }
-      //If the post only receives 1 interaction (like)
-      if (post._id === like._id) {
-        return {
-          ...post,
-          like: like.like,
-        }
-      }
-      //If the post only receives 1 interaction (comment)
-      if  (post._id === comment._id) {
-        return {
-          ...post,
-          comment: comment.comment,
-        }
-      }
-      return post;
-    })
-  }
-
-  newPosts = checkPost(posts, like, comment);
 
   // Login user
   const onLogin = ({ email, password }, e) => {
@@ -145,7 +113,7 @@ let App = (props) => {
             <Signup onSignup={onSignup} />
           </Route>
           <Route path='/timeline'>
-            <PostList posts={newPosts} onComment={onComment} />
+            <PostList posts={posts} onComment={onComment} />
           </Route>
           <Route path='/createpost'>
             <CreatePost onCreatePost={onCreatePost} />

@@ -11,11 +11,11 @@ function* getData(value) {
 }
 function* likePost(disp) {
     let res = yield axios.post(likeUri, disp.data);
-    yield put({type: 'LIKE RECEIVED', data: res.data})
+    yield put({type: 'DATA RECEIVED', data: res.data})
 }
 function* commentPost(disp) {
     let res = yield axios.post(commentUri, disp.data);
-    yield put({type: 'COMMENT RECEIVED', data: res.data})
+    yield put({type: 'DATA RECEIVED', data: res.data})
 }
 
 function* actionWatcher() {
