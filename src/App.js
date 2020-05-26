@@ -28,12 +28,31 @@ let App = (props) => {
   let newPosts = [];
 
   const checkPost = (posts, like, comment) => {
+    if (!like && !comment) return posts;
     return posts.map(post => {
-      switch (post._id) {
-        case like._id: return like;
-        case comment._id: return comment;
-        default: return post
+      // If one post receives 2 like events and comments
+      if (post._id === like._id && post._id === comment._id) {
+        return {
+          ...post,
+          like: like.like,
+          comment: comment.comment,
+        }
       }
+      //If the post only receives 1 interaction (like)
+      if (post._id === like._id) {
+        return {
+          ...post,
+          like: like.like,
+        }
+      }
+      //If the post only receives 1 interaction (comment)
+      if  (post._id === comment._id) {
+        return {
+          ...post,
+          comment: comment.comment,
+        }
+      }
+      return post;
     })
   }
 

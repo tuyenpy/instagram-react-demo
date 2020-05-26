@@ -6,6 +6,7 @@ import './PostItem.css';
 
 const PostItem = (props) => {
     let { userID, body, comment, onComment, _id, onLike, like } = props;
+    console.log('PostItem rendering');
     return <div className="PostItem">
         <p><b>Người viết:</b> {userID}</p>
         <p>{body}</p>
