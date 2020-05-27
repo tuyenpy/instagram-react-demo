@@ -10,4 +10,14 @@ const commentPost = (data) => ({
     type: 'COMMENT POST',
     data: data,
 })
-export { getData, likePost, commentPost };
+
+const createUser = (data) => ({
+    type: 'CREATE USER',
+    data: data,
+}) 
+
+const createPost = (data) => ({
+    type: 'CREATE POST',
+    data: data,
+})
+export { getData, likePost, commentPost, createUser, createPost };

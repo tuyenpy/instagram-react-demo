@@ -9,8 +9,20 @@ const postReducer = (state = [], action) => {
     }
 }
 
+const userReducer = (state = {}, action) => {
+    switch (action.type) {
+        case 'GET USER': return state;
+        case 'USER RECEIVED': return action.data;
+        default:
+            return state;
+    }
+}
+
+
+
 const rootReducer = combineReducers({
     posts: postReducer,
+    user: userReducer,
 });
 
 export default rootReducer;
