@@ -4,6 +4,7 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
+  Redirect,
 } from 'react-router-dom';
 
 import { withCookies } from 'react-cookie';
@@ -14,25 +15,42 @@ import Header from './component/Header/Header';
 import Signup from './component/Signup/Signup';
 import Home from './component/Home/Home';
 import CreatePost from './component/CreatePost/CreatePost';
+import Login from './component/Login/Login';
+import PostList from './component/PostList/PostList';
+import SideLeft from './component/SideLeft/SideLeft';
+import Suggest from './component/Suggest/Suggest';
 
 let App = (props) => {
-
+  let { cookies } = props;
   return (
     <Router>
-      <Header />
-      <div className="App">
-        <div className="App-header"></div>
-        <Switch>
-          <Route exact path='/'>
-              <Home />
-            </Route>
-          <Route path='/signup'>
-            <Signup />
-          </Route>
-          <Route path='/post/create'>
-            <CreatePost />
-          </Route>
-        </Switch>
+      <div className="container">
+        {
+          cookies.get("userID") ? (
+            <>
+              <Header />
+              <Switch>
+                <Route exact path="/">
+                  <div className="App">
+                    <div className="App-header"></div>
+                    <PostList />
+                    <Suggest />
+                  </div>
+                  <SideLeft />
+                </Route>
+              </Switch>
+            </>
+          ) : (
+              <>
+              <Redirect to="/" />
+              <Switch>
+                <Route exact path="/">
+                  <Home />
+                </Route>
+              </Switch>
+              </>
+            )
+        }
       </div>
     </Router>
   );
@@ -44,8 +62,7 @@ const mapDispatchToProp = {
 
 const mapStateToProp = (state) => ({
   posts: state.posts,
-  like: state.like,
-  comment: state.comment,
+  user: state.user,
 });
 
 App = connect(mapStateToProp, mapDispatchToProp)(App);

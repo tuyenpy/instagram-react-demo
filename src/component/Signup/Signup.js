@@ -1,4 +1,6 @@
 import React, { useState, useReducer } from 'react';
+import { withCookies } from 'react-cookie';
+import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import onPhotoSelected from '../../func/onCloudinaryUpload';
@@ -39,10 +41,9 @@ const reducer = (user, action) => {
 
 
 let Signup = (props) => {
-    let { createUser } = props;
+    let { createUser, isSigned, cookies } = props;
     let [path, setPath] = useState();
     let [user, dispatch] = useReducer(reducer, initUser);
-    let [state, setState] = useState(true);
     const onSignup = async (e) => {
         e.preventDefault();
         // upload to cloudinary
@@ -50,14 +51,20 @@ let Signup = (props) => {
         // add avatar property to user
         user.avatar = avatar;
         // post create user
-        console.log(user);
         createUser(user);
     }
+    isSigned && cookies.set("userID", isSigned);
+    
     return <>
+    {
+        cookies.get("userID") ? (
+            <Redirect to="/post/timeline" />
+        ) : (
+
         <div className="Signup">
             <form>
                 <h1>Tạo tài khoản</h1>
-                <img src={close} alt="close" className="close" onClick={() => setState(false)} />
+                <img src={close} alt="close" className="close"/>
                 <div className="Signup-group">
                     <label>Name</label>
                     <input type="text"
@@ -98,15 +105,21 @@ let Signup = (props) => {
                 <button onClick={onSignup}>Đăng ký</button>
             </form>
         </div>
+        )
+    }
 
     </>
 }
+
+const mapStateToProp = (state) => ({
+    isSigned: state.user._id,
+});
 
 const mapDispatchToProp = {
     createUser: createUser,
 }
 
-Signup = connect(null, mapDispatchToProp)(Signup);
+Signup = connect(mapStateToProp, mapDispatchToProp)(Signup);
 
 
-export default Signup;
+export default withCookies(Signup);
