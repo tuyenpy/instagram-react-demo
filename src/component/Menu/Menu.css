@@ -1,0 +1,31 @@
+.menu-layout {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #000000a6;
+    z-index: 11;
+
+}
+
+.menu-layout-content {
+    width: 29%;
+    margin: 11% auto;
+    background-color: #ffffff;
+    text-align: center;
+    border: 1px solid #DBDBDB;
+    border-radius: 10px;
+
+}
+
+.menu-layout-content p {
+    padding: 14px 0px;
+    border-bottom: 1px solid #DBDBDB;
+    cursor: pointer;
+}
+.menu-layout-content p:nth-child(1),
+.menu-layout-content p:nth-child(2) {
+    font-weight: 600;
+    color: #f03f4e;
+}

@@ -103,28 +103,28 @@ let App = (props) => {
   return (
     <Router>
       <Header />
-        <div className="App">
-          <div className="App-header"></div>
-          <Switch>
-            <Route exact path='/'>
+      <div className="App">
+        <div className="App-header"></div>
+        <Switch>
+          {/* <Route exact path='/'>
               <Home />
-            </Route>
-            {/* <Route path='/login'>
+            </Route> */}
+          {/* <Route path='/login'>
             <Login onLogin={onLogin} />
           </Route> */}
-            {/* <Route path='/signup'>
+          {/* <Route path='/signup'>
             <Signup onSignup={onSignup} />
           </Route> */}
-            <Route path='/timeline'>
-              <PostList posts={posts} onComment={onComment} />
-              <Suggest />
-            </Route>
-            {/* <Route path='/createpost'>
+          <Route exact path='/'>
+            <PostList posts={posts} onComment={onComment} />
+            <Suggest />
+          </Route>
+          {/* <Route path='/createpost'>
             <CreatePost onCreatePost={onCreatePost} />
           </Route> */}
-          </Switch>
-        </div>
-        <SideLeft />
+        </Switch>
+      </div>
+      <SideLeft />
     </Router>
   );
 }

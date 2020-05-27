@@ -5,6 +5,8 @@ import comment from './comment.svg';
 import share from './share.svg';
 import save from './save.svg';
 
+import Menu from '../Menu/Menu';
+
 const PostItem = (props) => {
     return <div className="PostItem">
         <div className="PostItem-header">
@@ -12,11 +14,7 @@ const PostItem = (props) => {
                 <img src="https://loremflickr.com/240/240" alt="avatar" />
                 <span>nha bot</span>
             </div>
-            <div className="menu">
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
+            <Menu />
         </div>
         <div className="PostItem-body">
             <div className="image">
