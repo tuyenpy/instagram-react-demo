@@ -1,16 +1,38 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { connect } from 'react-redux';
+import { getData } from '../../actions';
 import PostItem from '../PostItem/PostItem';
 import './PostList.css';
 
-const PostList = (props) => {
-    let { posts, onComment, onLike } = props;
+let PostList = (props) => {
+    let { newPosts, getData, newUser } = props;
+
+    useEffect(() => {
+        getData();
+
+    },[getData]);
+    if (newPosts.posts) {
+        var posts = newPosts.posts;
+    }
     return <div className="PostList">
         {
             posts && posts.map((post, index) =>
-                <PostItem {...post} key={index} onComment={onComment} onLike={ onLike }/>
+                <PostItem {...post} newUser={newUser} key={index} />
             )
         }
     </div>
 }
+
+const mapStateToProp = (state) => ({
+    newPosts: state.posts,
+    newUser: state.user,
+});
+
+const mapDispatchToProp = {
+    getData: getData,
+};
+
+PostList = connect(mapStateToProp, mapDispatchToProp)(PostList);
+
 
 export default PostList;

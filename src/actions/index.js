@@ -13,6 +13,11 @@ const commentPost = (data) => ({
     type: 'COMMENT POST',
     data: data,
 })
+//get user
+const getUser = (data) => ({
+    type: 'GET USER',
+    data: data,
+});
 
 //create user
 const createUser = (data) => ({
@@ -37,4 +42,5 @@ export {
     createUser, 
     createPost,
     loginUser,
+    getUser,
 };

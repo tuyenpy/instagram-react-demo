@@ -32,6 +32,7 @@
 
 .btn-left img {
     margin-right: 10px;
+    cursor: pointer;
 }
 
 .menu span {
@@ -64,4 +65,8 @@
     text-transform: uppercase;
     color: #8E8E8E;
     font-size: 10px;
+}
+
+.PostItem-section .date {
+    margin-top: 5px;
 }

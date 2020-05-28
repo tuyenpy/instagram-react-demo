@@ -1,27 +1,32 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import './App.css';
 import {
   BrowserRouter as Router,
   Switch,
   Route,
-  Redirect,
 } from 'react-router-dom';
 
 import { withCookies } from 'react-cookie';
 import { connect } from 'react-redux';
-import { getData } from './actions';
+import { getData, getUser } from './actions';
 
 import Header from './component/Header/Header';
-import Signup from './component/Signup/Signup';
 import Home from './component/Home/Home';
-import CreatePost from './component/CreatePost/CreatePost';
-import Login from './component/Login/Login';
 import PostList from './component/PostList/PostList';
 import SideLeft from './component/SideLeft/SideLeft';
 import Suggest from './component/Suggest/Suggest';
+import CreatePost from './component/CreatePost/CreatePost';
 
 let App = (props) => {
-  let { cookies } = props;
+  let { cookies, getUser } = props;
+  
+  // get user 
+  useEffect(() => {
+    if (cookies.get('userID')) {
+      getUser(cookies.get('userID'));
+    }
+  }, [cookies, getUser]);
+
   return (
     <Router>
       <div className="container">
@@ -37,6 +42,9 @@ let App = (props) => {
                     <Suggest />
                   </div>
                   <SideLeft />
+                </Route>
+                <Route path="/post/create">
+                  <CreatePost />
                 </Route>
               </Switch>
             </>
@@ -57,6 +65,7 @@ let App = (props) => {
 
 const mapDispatchToProp = {
   getData: getData,
+  getUser: getUser,
 }
 
 const mapStateToProp = (state) => ({

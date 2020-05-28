@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 
 import onPhotoSelected from '../../func/onCloudinaryUpload';
 import './CreatePost.css';
-import close from './close.svg';
 
 import { createPost } from '../../actions';
 
@@ -29,10 +28,13 @@ const reducer = (post, action) => {
 
 
 let CreatePost = (props) => {
-    let { createPost } = props;
+    let { createPost, newUser } = props;
     let [path, setPath] = useState();
     let [post, dispatch] = useReducer(reducer, initPost);
-    let [state, setState] = useState(true);
+    
+    if (newUser.user) {
+        var { _id } = newUser.user;
+    }
     const onCreatePost = async (e) => {
         e.preventDefault();
         // upload to cloudinary
@@ -41,8 +43,7 @@ let CreatePost = (props) => {
         // add avatar property to user
         post.images = images;
         //mock user
-        const userID = "5ece3c638a9c640017450863";
-        post.userID = userID;
+        post.userID = _id;
         // post create user
         console.log(post);
         createPost(post);
@@ -50,8 +51,6 @@ let CreatePost = (props) => {
     return <>
         <div className="CreatePost">
             <form>
-                <h1>Tạo bài viết</h1>
-                <img src={close} alt="close" className="close" onClick={() => setState(false)} />
                 <div className="CreatePost-group">
                     <label>Title</label>
                     <input type="text"
@@ -84,11 +83,15 @@ let CreatePost = (props) => {
     </>
 }
 
+const mapStateToProp = (state) => ({
+    newUser: state.user,
+})
+
 const mapDispatchToProp = {
     createPost: createPost,
 }
 
-CreatePost = connect(null, mapDispatchToProp)(CreatePost);
+CreatePost = connect(mapStateToProp, mapDispatchToProp)(CreatePost);
 
 
 export default CreatePost;

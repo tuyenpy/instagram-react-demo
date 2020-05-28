@@ -7,7 +7,7 @@ const likeUri = "https://instagram-express-demo.herokuapp.com/api/post/like";
 const createUserUri = "https://instagram-express-demo.herokuapp.com/api/user/signup";
 const createPostUri = "https://instagram-express-demo.herokuapp.com/api/post/create";
 const loginUserUri = "https://instagram-express-demo.herokuapp.com/api/user/login";
-
+const getUserUri = "https://instagram-express-demo.herokuapp.com/api/user";
 //get post action
 function* getData(value) {
     let res = yield axios.get(postUri);
@@ -36,11 +36,22 @@ function* commentActionWatcher() {
     yield takeLatest('COMMENT POST', commentPost);
 
 }
+//get user
+function* getUser(disp) {
+    let res = yield axios.get(getUserUri, {
+        params: {
+            id: disp.data
+        }
+    });
+    yield put({type: 'USER RECEIVED', data: res.data});
+}
 
+function* getUserActionWatcher() {
+    yield takeLatest('GET USER', getUser);
+}
 //create user
 function* createUser(disp) {
     let res = yield axios.post(createUserUri, disp.data);
-    console.log(res);
     yield put({type: 'USER RECEIVED', data: res.data});
 }
 function* createUserActionWatcher() {
@@ -50,6 +61,7 @@ function* createUserActionWatcher() {
 //create post
 function* createPost(disp) {
     let res = yield axios.post(createPostUri, disp.data);
+    console.log(res);
     yield put({type: 'DATA RECEIVED', data: res.data});
 }
 function* createPostActionWatcher() {
@@ -59,7 +71,6 @@ function* createPostActionWatcher() {
 //login user
 function* loginUser(disp) {
     let res = yield axios.post(loginUserUri, disp.data);
-    console.log(res);
     yield put({type: 'USER RECEIVED', data: res.data});
 }
 
@@ -76,5 +87,6 @@ export default function* rootSaga() {
         createUserActionWatcher(),
         createPostActionWatcher(),
         loginUserActionWatcher(),
+        getUserActionWatcher(),
     ]);
 }

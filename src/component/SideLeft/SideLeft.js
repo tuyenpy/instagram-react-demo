@@ -1,15 +1,20 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import './SideLeft.css';
 
 const profile = "https://instagram.fdac57-1.fna.fbcdn.net/v/t51.2885-19/44884218_345707102882519_2446069589734326272_n.jpg?_nc_ht=instagram.fdac57-1.fna.fbcdn.net&_nc_ohc=_oxvNQjA4CwAX_wXBt0&oh=aeeac5789e94379884dcb6c593ba440e&oe=5EF7FD0F&ig_cache_key=YW5vbnltb3VzX3Byb2ZpbGVfcGlj.2";
 
-const SideLeft = (props) => {
+let SideLeft = (props) => {
+    let { newUser } = props;
+    if (newUser.user) {
+        var { avatar, name, email } = newUser.user;
+    }
     return <div className="SideLeft">
         <div className="SideLeft-profile">
-            <img src={profile} alt="avatar" />
+            <img src={avatar} alt="avatar" />
             <div>
-                <p>lannguyen2042020</p>
-                <p>Lan Nguyen</p>
+                <p>{name || "name"}</p>
+                <p>{email || "email"}</p>
             </div>
         </div>
         <div className="SideLeft-suggest">
@@ -94,5 +99,11 @@ const SideLeft = (props) => {
         </div>
     </div>
 }
+
+const mapStateToProp = (state) => ({
+    newUser: state.user,
+})
+
+SideLeft = connect(mapStateToProp, null)(SideLeft);
 
 export default SideLeft;

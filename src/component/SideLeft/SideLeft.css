@@ -15,6 +15,7 @@
 
 .SideLeft-profile img {
     width: 50px;
+    border-radius: 50%;
 }
 .SideLeft-profile div {
     padding-left: 15px;

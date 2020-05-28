@@ -1,14 +1,15 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { commentPost } from '../../actions';
+import './CommentButton.css';
 
 
 let CommentButton = (props) => {
     let [cmt, setCmt] = useState('');
-    let { commentPost, postID, userID } = props;
+    let { commentPost, postID, userID, userName } = props;
     const onComment = (e) => {
         e.preventDefault();
-        commentPost({ postID, userID, cmt });
+        commentPost({ postID, userID, cmt, userName });
         setCmt('');
     }
     return <div className="CommentButton">
@@ -16,8 +17,9 @@ let CommentButton = (props) => {
             <input type="text"
                 onChange={(e) => setCmt(e.target.value)}
                 value={cmt}
+                placeholder="Add a comment..."
             />
-            <button onClick={onComment}>Submit</button>
+            <button onClick={onComment}>Post</button>
 
         </form>
     </div>

@@ -1,0 +1,27 @@
+.CommentButton form {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    box-sizing: border-box;
+    border-top: 1px solid #EFEFEF;
+    margin-top: 10px;
+}
+
+.CommentButton form input {
+    border: 0px;
+    width: 100%;
+    color: #4b4b4b;
+    font-size: 13px;
+}
+
+.CommentButton form input::placeholder {
+    color: #bebebe;
+}
+
+.CommentButton form button {
+    border: 0;
+    background-color: transparent;
+    color: #0095F7;
+    cursor: pointer;
+}

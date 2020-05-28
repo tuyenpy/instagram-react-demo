@@ -29,7 +29,7 @@ const Account = (props) => {
             </a>
         </div>
         <div className="Account-profile margin">
-            <a href='/'>
+            <a href='/post/create'>
                 <img src={profile} alt="profile" />
             </a>
         </div>
