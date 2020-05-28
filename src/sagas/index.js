@@ -59,6 +59,7 @@ function* createPostActionWatcher() {
 //login user
 function* loginUser(disp) {
     let res = yield axios.post(loginUserUri, disp.data);
+    console.log(res);
     yield put({type: 'USER RECEIVED', data: res.data});
 }
 

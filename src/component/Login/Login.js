@@ -13,7 +13,6 @@ let Login = (props) => {
     let {
         loginUser,
         cookies,
-        isLogined,
         newUser,
     } = props;
 
@@ -24,8 +23,9 @@ let Login = (props) => {
     }
 
     //set cookies when the user successfully login
-    if (isLogined) {
-        cookies.set('userID', isLogined);
+    if (newUser.user) {
+        let {_id} = newUser.user;
+        cookies.set('userID', _id);
     }
 
     if (newUser.errors) {
@@ -74,7 +74,6 @@ let Login = (props) => {
 }
 
 const mapStateToProp = (state) => ({
-    isLogined: state.user._id,
     newUser: state.user,
 });
 

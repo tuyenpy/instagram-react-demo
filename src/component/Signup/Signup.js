@@ -41,7 +41,7 @@ const reducer = (user, action) => {
 
 
 let Signup = (props) => {
-    let { createUser, isSigned, cookies, newUser } = props;
+    let { createUser, cookies, newUser } = props;
     let [path, setPath] = useState();
     let [user, dispatch] = useReducer(reducer, initUser);
     const onSignup = async (e) => {
@@ -53,8 +53,9 @@ let Signup = (props) => {
         // post create user
         createUser(user);
     }
-    if (isSigned) {
-        cookies.set("userID", isSigned);
+    if (newUser.user) {
+        let { _id } = newUser.user;
+        cookies.set("userID", _id);
     }
 
     if (newUser.errors) {
@@ -75,7 +76,7 @@ let Signup = (props) => {
         }
         {
             cookies.get("userID") ? (
-                <Redirect to="/post/timeline" />
+                <Redirect to="/" />
             ) : (
 
                     <div className="Signup">
@@ -122,7 +123,6 @@ let Signup = (props) => {
 }
 
 const mapStateToProp = (state) => ({
-    isSigned: state.user._id,
     newUser: state.user,
 
 });
