@@ -36,7 +36,6 @@ const SlideHome = (props) => {
 
     }, [state]);
 
-    console.log(state);
     return <>
         <img src={slides[state]} alt="" />
 

@@ -14,6 +14,7 @@ let Login = (props) => {
         loginUser,
         cookies,
         isLogined,
+        newUser,
     } = props;
 
     // onClick
@@ -23,9 +24,26 @@ let Login = (props) => {
     }
 
     //set cookies when the user successfully login
-    isLogined && cookies.set('userID', isLogined);
+    if (isLogined) {
+        cookies.set('userID', isLogined);
+    }
+
+    if (newUser.errors) {
+        var { errors } = newUser;
+    }
 
     return <>
+        {
+            errors ? (
+                <div className="error">
+                    <ul>
+                        {
+                            errors.map(error => <li key={error}>{error}</li>)
+                        }
+                    </ul>
+                </div>
+            ) : (<></>)
+        }
         {
             cookies.get("userID") ? (<Redirect to='/' />) : (
 
@@ -57,6 +75,7 @@ let Login = (props) => {
 
 const mapStateToProp = (state) => ({
     isLogined: state.user._id,
+    newUser: state.user,
 });
 
 const mapDispatchToProp = {

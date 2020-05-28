@@ -40,6 +40,7 @@ function* commentActionWatcher() {
 //create user
 function* createUser(disp) {
     let res = yield axios.post(createUserUri, disp.data);
+    console.log(res);
     yield put({type: 'USER RECEIVED', data: res.data});
 }
 function* createUserActionWatcher() {
