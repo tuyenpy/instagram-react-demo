@@ -62,36 +62,29 @@ let Signup = (props) => {
         ) : (
 
         <div className="Signup">
-            <form>
-                <h1>Tạo tài khoản</h1>
-                <img src={close} alt="close" className="close"/>
-                <div className="Signup-group">
-                    <label>Name</label>
+            <form className="Signup-form">
+                <div className="Signup-form-group">
                     <input type="text"
                         placeholder="Please fill name"
                         onChange={(e) => dispatch({ type: 'name', value: e.target.value })}
                     />
                 </div>
-                <div className="Signup-group">
-                    <label>Phone</label>
+                <div className="Signup-form-group">
                     <input type="text"
                         placeholder="Please fill phone"
                         onChange={(e) => dispatch({ type: 'phone', value: e.target.value })} />
                 </div>
-                <div className="Signup-group">
-                    <label>Email</label>
+                <div className="Signup-form-group">
                     <input type="email"
                         placeholder="Please fill email"
                         onChange={(e) => dispatch({ type: 'email', value: e.target.value })} />
                 </div>
-                <div className="Signup-group">
-                    <label>Password</label>
+                <div className="Signup-form-group">
                     <input type="password"
                         placeholder="Please fill password"
                         onChange={(e) => dispatch({ type: 'password', value: e.target.value })} />
                 </div>
-                <div className="Signup-group">
-                    <label>Avatar</label>
+                <div className="Signup-form-group">
                     <input
                         type="file"
                         id="fileupload"

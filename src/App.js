@@ -42,9 +42,8 @@ let App = (props) => {
             </>
           ) : (
               <>
-              <Redirect to="/" />
               <Switch>
-                <Route exact path="/">
+                <Route path="/">
                   <Home />
                 </Route>
               </Switch>

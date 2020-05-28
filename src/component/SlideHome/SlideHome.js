@@ -13,7 +13,7 @@ const slides = [
 ];
 
 const SlideHome = (props) => {
-    let [state, setState] = useState();
+    let [state, setState] = useState(0);
     const getNext = (state) => {
         switch (state) {
             case 0: return 1;
@@ -26,11 +26,15 @@ const SlideHome = (props) => {
     };
 
     useEffect(() => {
-        setInterval(() => {
+        let setSlide = setInterval(() => {
             setState(getNext(state));
         }, 2000);
 
-    }, [state])
+        return () => {
+            clearInterval(setSlide);
+        }
+
+    }, [state]);
 
     console.log(state);
     return <>

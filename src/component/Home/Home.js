@@ -1,9 +1,12 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { Route } from 'react-router-dom';
 import './Home.css';
 import Login from '../Login/Login';
 import facebook from './facebook.svg';
 import instagram from './instagram.png';
 import SlideHome from  '../SlideHome/SlideHome';
+import Signup from '../Signup/Signup';
+
 
 const Home = (props) => {
     console.log("Home rendering")
@@ -16,7 +19,14 @@ const Home = (props) => {
                 <div className="form-login">
                     <img src={instagram} alt="logo" />
                     <div className="login">
-                        <Login />
+                        <Route exact path='/'>
+                            <Login />
+
+                        </Route>
+                        <Route path="/signup">
+                  <Signup />
+                </Route>
+
                         <div className="hr">
                             <span></span>
                             <p>Or</p>
