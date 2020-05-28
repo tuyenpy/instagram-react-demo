@@ -3,6 +3,7 @@ import { withCookies } from 'react-cookie';
 import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { loginUser } from '../../actions';
+import './Login.css';
 
 let Login = (props) => {
     let [email, setEmail] = useState();
@@ -26,18 +27,24 @@ let Login = (props) => {
 
     return <>
         {
-            cookies.get("userID") ? (<Redirect to='/post/timeline' />) : (
+            cookies.get("userID") ? (<Redirect to='/' />) : (
 
                 <div className="Login">
                     <form className="Login-form">
-                        <input type="text"
-                            placeholder="type email"
-                            onChange={(e) => setEmail(e.target.value)}
-                        />
-                        <input type="text"
-                            placeholder="type password"
-                            onChange={(e) => setPassword(e.target.value)}
-                        />
+                        <div className="Login-form-group">
+                            <input type="text"
+                                placeholder="Phone number, username or email"
+                                onChange={(e) => setEmail(e.target.value)}
+                            />
+
+                        </div>
+                        <div className="Login-form-group">
+
+                            <input type="password"
+                                placeholder="Password"
+                                onChange={(e) => setPassword(e.target.value)}
+                            />
+                        </div>
                         <button onClick={onLogin}>Login</button>
                     </form>
 
